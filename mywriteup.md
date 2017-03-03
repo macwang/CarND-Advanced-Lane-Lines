@@ -43,8 +43,20 @@ def build_distort_p(save_to):
         pickle.dump(data, output)
 ```
 
+![alt text][image1]
+![alt text][image2]
+
+
+[//]: # (Image References)
+
 [image1]: ./output_images/chessboard-1.png "Chessboard-1"
 [image2]: ./output_images/chessboard-2.png "Chessboard-2"
+[image3]: ./output_images/perspective_transform-1.png "Perspective transform-1"
+[image4]: ./output_images/perspective_transform-1.png "Perspective transform-2"
+
+---
+End
+---
 
 **Advanced Lane Finding Project**
 
@@ -59,8 +71,8 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-[//]: # (Image References)
-<!--
+<!-- [//]: # (Image References)
+
 [image1]: ./examples/undistort_output.png "Undistorted"
 [image2]: ./test_images/test1.jpg "Road Transformed"
 [image3]: ./examples/binary_combo_example.jpg "Binary Example"
@@ -68,6 +80,8 @@ The goals / steps of this project are the following:
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video" -->
+
+
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
