@@ -82,7 +82,10 @@ The yellow lane lines on concrete road are not as obvious as white lane lines on
 
 ### Apply perspective transform on the generated binary image
 
-Use the
+Use the perspective transform matrix M and the combined binary image from last step together to generate a B/W land lines.
+
+![alt text][image7]
+
 
 [//]: # (Image References)
 
@@ -92,6 +95,7 @@ Use the
 [image4]: ./output_images/perspective_transform-1.png "Perspective transform-1"
 [image5]: ./output_images/perspective_transform-2.png "Perspective transform-2"
 [image6]: ./output_images/colorspace-1.png "Colorspace-1"
+[image7]: ./output_images/color_warped-1.png "Colorspace warped-1"
 
 
 ---
