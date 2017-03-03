@@ -82,7 +82,7 @@ The yellow lane lines on concrete road are not as obvious as white lane lines on
 
 ### Apply perspective transform on the generated binary image
 
-Use the 
+Use the
 
 [//]: # (Image References)
 
@@ -90,7 +90,7 @@ Use the
 [image2]: ./output_images/chessboard-2.png "Chessboard-2"
 [image3]: ./output_images/perspective_transform-mark.png "Perspective transform-mark"
 [image4]: ./output_images/perspective_transform-1.png "Perspective transform-1"
-[image5]: ./output_images/perspective_transform-1.png "Perspective transform-2"
+[image5]: ./output_images/perspective_transform-2.png "Perspective transform-2"
 [image6]: ./output_images/colorspace-1.png "Colorspace-1"
 
 
