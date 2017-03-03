@@ -4,7 +4,7 @@
 
 ### Camera Calibration
 
-OpenCV has already provided handy functions for camera calibrating. Udacity also provided dozens quality chessboard images. So it's quite intuitively to load all of them and generate the calibration matrix.
+OpenCV has already provided handy functions for camera calibrating. Udacity also provided dozens quality chessboard images. The idea was to collect the 3D points in real world space and 2D points in image plane. Then use cv2.calibrateCamera() to generate the calibration matrix. I saved the mtx and dist to distort.p for later use.
 
 ```python
 def build_distort_p(save_to):
@@ -46,13 +46,42 @@ def build_distort_p(save_to):
 ![alt text][image1]
 ![alt text][image2]
 
+### Perspective transform
+
+Next, we need to transform the front camera image to bird view image. It will be easier to see the curvature of the land lines.
+
+I added 9 marks in the images indicating the coordinates I used to do the transforming. The up-arrow, down-arrow, cross and square signs in the inner trapezoid transformed to the outer corresponding signs. Those numbers were manually tuned, no serious theory behind. I wrapped it into get_perspective_transform() as below.
+
+![alt text][image3]
+
+```
+def get_perspective_transform():
+    mid = 1280/2         # mid line
+    t1, b1 = 450, 700    # src top, bottom
+    t_tw, t_bw = 90, 820 # trapezoid top, bottom
+    t2, b2 = 10, 720     # dst top, bottom
+    tw = 620             # dst width
+
+    src = np.float32([[mid-t_tw, t1], [mid+t_tw, t1], [mid-t_bw, b1], [mid+t_bw, b1]])
+    dst = np.float32([[mid-tw, t2], [mid+tw, t2], [mid-tw, b2], [mid+tw, b2]])
+
+    M = cv2.getPerspectiveTransform(src, dst)
+
+    return M
+```
+
+#### Here are the result
+![alt text][image4]
+![alt text][image5]
+
 
 [//]: # (Image References)
 
 [image1]: ./output_images/chessboard-1.png "Chessboard-1"
 [image2]: ./output_images/chessboard-2.png "Chessboard-2"
-[image3]: ./output_images/perspective_transform-1.png "Perspective transform-1"
-[image4]: ./output_images/perspective_transform-1.png "Perspective transform-2"
+[image3]: ./output_images/perspective_transform-mark.png "Perspective transform-mark"
+[image4]: ./output_images/perspective_transform-1.png "Perspective transform-1"
+[image5]: ./output_images/perspective_transform-1.png "Perspective transform-2"
 
 ---
 End
