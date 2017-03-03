@@ -57,3 +57,56 @@ def get_perspective_transform():
     M = cv2.getPerspectiveTransform(src, dst)
 
     return M
+
+def thresh_filter(s, thresh=(0, 255)):
+    binary_output = np.zeros_like(s)
+    binary_output[(s > thresh[0]) & (s <= thresh[1])] = 1
+    return binary_output
+
+# Define a function that takes an image, gradient orientation,
+# and threshold min / max values.
+def abs_sobel_thresh(channel, orient='x', abs_sobel_thresh_min=0, abs_sobel_thresh_max=255):
+    # Apply x or y gradient with the OpenCV Sobel() function
+    # and take the absolute value
+    if orient == 'x':
+        abs_sobel = np.absolute(cv2.Sobel(channel, cv2.CV_64F, 1, 0))
+    if orient == 'y':
+        abs_sobel = np.absolute(cv2.Sobel(channel, cv2.CV_64F, 0, 1))
+
+    # Rescale back to 8 bit integer
+    scaled_sobel = np.uint8(255*abs_sobel/np.max(abs_sobel))
+
+    # Create a copy and apply the threshold
+    binary_output = np.zeros_like(scaled_sobel)
+    # Here I'm using inclusive (>=, <=) thresholds, but exclusive is ok too
+    binary_output[(scaled_sobel >= abs_sobel_thresh_min) & (scaled_sobel <= abs_sobel_thresh_max)] = 1
+
+    # Return the result
+    return binary_output
+
+def s_filter(rgb_img, thresh_low=170, thresh_high=255):
+    '''
+    Input: RGB image
+    Output: Binary image
+    '''
+    hls = cv2.cvtColor(rgb_img, cv2.COLOR_RGB2HLS)
+    s = hls[:, :, 2]
+    s_binary = thresh_filter(s, (170, 255))
+
+    return s_binary
+
+def sobel_filter(rgb_img, thresh_low=170, thresh_high=255):
+    '''
+    Input: RGB image
+    Output: Binary image
+    '''
+    gray = cv2.cvtColor(rgb_img, cv2.COLOR_RGB2GRAY)
+    sxbinary = abs_sobel_thresh(gray, 'x', 20, 100)
+
+    return sxbinary
+
+def combine_binaries(img1, img2):
+    assert img1.shape == img2.shape
+    combined_binary = np.zeros_like(img1)
+    combined_binary[(img1 == 1) | (img2 == 1)] = 1
+    return combined_binary

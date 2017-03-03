@@ -50,7 +50,7 @@ def build_distort_p(save_to):
 
 Next, we need to transform the front camera image to bird view image. It will be easier to see the curvature of the land lines.
 
-I added 9 marks in the images indicating the coordinates I used to do the transforming. The up-arrow, down-arrow, cross and square signs in the inner trapezoid transformed to the outer corresponding signs. Those numbers were manually tuned, no serious theory behind. I wrapped it into get_perspective_transform() as below.
+I added 9 marks in the images indicating the coordinates I used to do the transforming. The up-arrow, down-arrow, cross and square signs in the inner trapezoid transformed to the outer corresponding signs. Those numbers were manually tuned, no serious theory behind. I wrapped it into get_perspective_transform() as below. The return matrix M will be used with the binary image I made in later stages.
 
 ![alt text][image3]
 
@@ -74,6 +74,15 @@ def get_perspective_transform():
 ![alt text][image4]
 ![alt text][image5]
 
+### Use different colorspace and apply gradient / Sobel filters to make clear lane lines
+
+The yellow lane lines on concrete road are not as obvious as white lane lines on asphalt road. Needless to say the conditions w/ tree shadows, it's hard to identify the lane lines. So I firstly convert the original RGB colorspace to HSL colorspace. Extract the points from the image with value ranges from 170 to 255. Secondly apply sobel x filters on grayscale image, extract the points with value range from 20 to 100. Then combines these two images into one(using OR).
+
+![alt text][image6]
+
+### Apply perspective transform on the generated binary image
+
+Use the 
 
 [//]: # (Image References)
 
@@ -82,6 +91,8 @@ def get_perspective_transform():
 [image3]: ./output_images/perspective_transform-mark.png "Perspective transform-mark"
 [image4]: ./output_images/perspective_transform-1.png "Perspective transform-1"
 [image5]: ./output_images/perspective_transform-1.png "Perspective transform-2"
+[image6]: ./output_images/colorspace-1.png "Colorspace-1"
+
 
 ---
 End
