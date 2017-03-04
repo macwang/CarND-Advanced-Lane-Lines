@@ -71,7 +71,9 @@ def fit_poly(binary_warped):
     left_fit = np.polyfit(lefty, leftx, 2)
     right_fit = np.polyfit(righty, rightx, 2)
 
-def fit_poly_vis():
+    return left_fit, right_fit
+
+def fit_poly_vis(binary_warped):
     # Generate x and y values for plotting
     ploty = np.linspace(0, binary_warped.shape[0]-1, binary_warped.shape[0] )
     left_fitx = left_fit[0]*ploty**2 + left_fit[1]*ploty + left_fit[2]
@@ -85,7 +87,7 @@ def fit_poly_vis():
     plt.xlim(0, 1280)
     plt.ylim(720, 0)
 
-def fit_poly_sub():
+def fit_poly_sub(binary_warped):
     # Assume you now have a new warped binary image
     # from the next frame of video (also called "binary_warped")
     # It's now much easier to find line pixels!
@@ -109,7 +111,9 @@ def fit_poly_sub():
     left_fitx = left_fit[0]*ploty**2 + left_fit[1]*ploty + left_fit[2]
     right_fitx = right_fit[0]*ploty**2 + right_fit[1]*ploty + right_fit[2]
 
-def fit_poly_sub_vis():
+    return left_fitx, right_fitx
+
+def fit_poly_sub_vis(binary_warped):
     # Create an image to draw on and an image to show the selection window
     out_img = np.dstack((binary_warped, binary_warped, binary_warped))*255
     window_img = np.zeros_like(out_img)
