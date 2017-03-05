@@ -112,7 +112,7 @@ def combine_binaries(img1, img2):
     combined_binary[(img1 == 1) | (img2 == 1)] = 1
     return combined_binary
 
-def draw_result(undist, warped, left_fit, right_fit, Minv):
+def draw_result(undist, warped, lane_line, left_fit, right_fit, Minv):
     # Create an image to draw the lines on
     warp_zero = np.zeros_like(warped).astype(np.uint8)
     color_warp = np.dstack((warp_zero, warp_zero, warp_zero))
@@ -127,10 +127,12 @@ def draw_result(undist, warped, left_fit, right_fit, Minv):
     pts = np.hstack((pts_left, pts_right))
 
     # Draw the lane onto the warped blank image
-    cv2.fillPoly(color_warp, np.int_([pts]), (0,255, 0))
+    # cv2.fillPoly(color_warp, np.int_([pts]), (0,255, 0))
 
+    # color_warp_laneline = cv2.addWeighted(color_warp, 0.8, lane_line, 0.2, 0)
+    color_warp_laneline = lane_line
     # Warp the blank back to original image space using inverse perspective matrix (Minv)
-    newwarp = cv2.warpPerspective(color_warp, Minv, (undist.shape[1], undist.shape[0]))
+    newwarp = cv2.warpPerspective(color_warp_laneline, Minv, (undist.shape[1], undist.shape[0]))
     # Combine the result with the original image
     result = cv2.addWeighted(undist, 1, newwarp, 0.3, 0)
 

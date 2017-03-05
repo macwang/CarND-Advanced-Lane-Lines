@@ -71,9 +71,9 @@ def fit_poly(binary_warped):
     left_fit = np.polyfit(lefty, leftx, 2)
     right_fit = np.polyfit(righty, rightx, 2)
 
-    return left_fit, right_fit
+    # return left_fit, right_fit
 
-def fit_poly_vis(binary_warped, left_fit, right_fit):
+# def fit_poly_vis(binary_warped, left_fit, right_fit):
     # Generate x and y values for plotting
     ploty = np.linspace(0, binary_warped.shape[0]-1, binary_warped.shape[0] )
     left_fitx = left_fit[0]*ploty**2 + left_fit[1]*ploty + left_fit[2]
@@ -81,15 +81,17 @@ def fit_poly_vis(binary_warped, left_fit, right_fit):
 
     out_img = np.dstack((binary_warped, binary_warped, binary_warped))*255
 
-    # out_img[nonzeroy[left_lane_inds], nonzerox[left_lane_inds]] = [255, 0, 0]
-    # out_img[nonzeroy[right_lane_inds], nonzerox[right_lane_inds]] = [0, 0, 255]
-    plt.imshow(out_img)
-    plt.plot(left_fitx, ploty, color='yellow')
-    plt.plot(right_fitx, ploty, color='yellow')
-    plt.xlim(0, 1280)
-    plt.ylim(720, 0)
-    plt.axis('off')
-    plt.show()
+    out_img[nonzeroy[left_lane_inds], nonzerox[left_lane_inds]] = [255, 0, 0]
+    out_img[nonzeroy[right_lane_inds], nonzerox[right_lane_inds]] = [0, 0, 255]
+
+    return left_fit, right_fit, out_img
+    # plt.imshow(out_img)
+    # plt.plot(left_fitx, ploty, color='yellow')
+    # plt.plot(right_fitx, ploty, color='yellow')
+    # plt.xlim(0, 1280)
+    # plt.ylim(720, 0)
+    # plt.axis('off')
+    # plt.show()
 
 def fit_poly_sub(binary_warped, left_fit, right_fit):
     # Assume you now have a new warped binary image
