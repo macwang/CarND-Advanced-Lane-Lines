@@ -92,7 +92,7 @@ def s_filter(rgb_img, thresh_low=170, thresh_high=255):
     '''
     hls = cv2.cvtColor(rgb_img, cv2.COLOR_RGB2HLS)
     s = hls[:, :, 2]
-    s_binary = thresh_filter(s, (170, 255))
+    s_binary = thresh_filter(s, (90, 255))
 
     return s_binary
 
