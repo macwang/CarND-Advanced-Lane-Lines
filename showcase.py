@@ -10,7 +10,7 @@ def show_calibration_result(mtx, dist):
 
     m = 3
 
-    images = glob.glob('../camera_cal/calibration*.jpg')
+    images = glob.glob('camera_cal/calibration*.jpg')
 
     for fname in images:
         img = mpimg.imread(fname)
@@ -36,7 +36,7 @@ def show_perspective_transform_result(mtx, dist, M):
 
     m = 3
 
-    images = glob.glob('../test_images/*.jpg')
+    images = glob.glob('test_images/*.jpg')
 
     for fname in images:
         img = mpimg.imread(fname)
@@ -64,7 +64,7 @@ def show_color_threshold_result(mtx, dist, M):
 
     m = 3
 
-    images = glob.glob('../test_images/*.jpg')
+    images = glob.glob('test_images/*.jpg')
 
     for fname in images:
         img = mpimg.imread(fname)
@@ -100,7 +100,7 @@ def show_filtered_warped_image(mtx, dist, M):
 
     m = 3
 
-    images = glob.glob('../test_images/*.jpg')
+    images = glob.glob('test_images/*.jpg')
 
     for fname in images:
         img = mpimg.imread(fname)
