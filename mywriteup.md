@@ -107,9 +107,7 @@ Add the curvature/offset information to the unwarped image and add it to origina
 
 ### result
 
-Here is a [link to my video result](./output_images/output.mp4)
-
-Here is a [link to my video result](https://youtu.be/sqAMu2re8mE)
+Here is a [link to my video result](./output_images/output.mp4), [YouTube](https://youtu.be/sqAMu2re8mE)
 
 ---
 
