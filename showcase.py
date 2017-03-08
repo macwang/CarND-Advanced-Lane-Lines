@@ -73,10 +73,11 @@ def show_color_threshold_result(mtx, dist, M):
 
         s_binary = s_filter(undist)
         sxbinary = sobel_filter(undist)
+        r_binary = thresh_filter(undist[:, :, 0], (110, 255))
 
         color_binary = np.dstack(( np.zeros_like(s_binary), sxbinary*200, s_binary*200))
 
-        combined_binary = combine_binaries(s_binary, sxbinary)
+        combined_binary = combine_binaries(s_binary, sxbinary, r_binary)
 
         fig = plt.figure(figsize=(20, 12))
 
@@ -109,7 +110,9 @@ def show_filtered_warped_image(mtx, dist, M):
 
         s_binary = s_filter(undist)
         sxbinary = sobel_filter(undist)
-        combined_binary = combine_binaries(s_binary, sxbinary)
+        r_binary = thresh_filter(undist[:, :, 0], (110, 255))
+
+        combined_binary = combine_binaries(s_binary, sxbinary, r_binary)
 
         warped = cv2.warpPerspective(combined_binary, M, (combined_binary.shape[1], combined_binary.shape[0]), flags=cv2.INTER_LINEAR)
 

@@ -85,31 +85,34 @@ def abs_sobel_thresh(channel, orient='x', abs_sobel_thresh_min=0, abs_sobel_thre
     # Return the result
     return binary_output
 
-def s_filter(rgb_img, thresh_low=170, thresh_high=255):
+def s_filter(rgb_img, thresh_low=90, thresh_high=255):
     '''
     Input: RGB image
     Output: Binary image
     '''
     hls = cv2.cvtColor(rgb_img, cv2.COLOR_RGB2HLS)
     s = hls[:, :, 2]
-    s_binary = thresh_filter(s, (90, 255))
+    s_binary = thresh_filter(s, (thresh_low, thresh_high))
 
     return s_binary
 
-def sobel_filter(rgb_img, thresh_low=170, thresh_high=255):
+def sobel_filter(rgb_img, thresh_low=20, thresh_high=100):
     '''
     Input: RGB image
     Output: Binary image
     '''
     gray = cv2.cvtColor(rgb_img, cv2.COLOR_RGB2GRAY)
-    sxbinary = abs_sobel_thresh(gray, 'x', 20, 100)
+    sxbinary = abs_sobel_thresh(gray, 'x', thresh_low, thresh_high)
 
     return sxbinary
 
-def combine_binaries(img1, img2):
-    assert img1.shape == img2.shape
-    combined_binary = np.zeros_like(img1)
-    combined_binary[(img1 == 1) | (img2 == 1)] = 1
+def combine_binaries(s_img, sx_img, r_img):
+    assert s_img.shape == sx_img.shape
+    assert sx_img.shape == r_img.shape
+    combined_binary = np.zeros_like(s_img)
+    combined_binary[((s_img == 1) & (sx_img == 1)) |
+                    ((r_img == 1) & (sx_img == 1)) |
+                    ((s_img == 1) & (r_img == 1))] = 1
     return combined_binary
 
 def draw_result(undist, warped, lane_line, left_fit, right_fit, Minv):
